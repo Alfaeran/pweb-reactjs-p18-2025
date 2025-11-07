@@ -3,8 +3,6 @@ import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import RegisterForm from '../../components/forms/RegisterForm';
 import { useAuth } from '../../context/AuthContext';
-// Gunakan CSS yang sama dengan Login untuk konsistensi
-import './Login.css';
 
 const Register = () => {
   const { isAuthenticated, loading } = useAuth();
