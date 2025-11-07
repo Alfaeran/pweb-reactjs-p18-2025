@@ -1,23 +1,13 @@
-// src/components/common/Footer.tsx
-import React from 'react';
-// Buat file CSS jika perlu, misal 'Footer.css'
-// import './Footer.css'; 
+import React from 'react'
 
-const Footer = () => {
-  const footerStyle: React.CSSProperties = {
-    backgroundColor: '#3b2a1a',
-    color: '#c7bdae',
-    textAlign: 'center',
-    padding: '1.5rem',
-    marginTop: 'auto', // Mendorong footer ke bawah
-    borderTop: '2px solid #eab308'
-  };
-
+const Footer: React.FC = () => {
   return (
-    <footer style={footerStyle}>
-      <p>&copy; {new Date().getFullYear()} Hogwarts Library. All rights reserved.</p>
+    <footer className="footer">
+      <div className="footer-container">
+        <p>&copy; 2024 IT Literature Shop. All rights reserved.</p>
+      </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
