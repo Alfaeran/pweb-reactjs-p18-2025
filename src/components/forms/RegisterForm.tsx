@@ -31,6 +31,7 @@ const RegisterForm = () => {
 
     setLoading(true);
     try {
+<<<<<<< HEAD
       console.log('Starting registration process for:', email);
       await register(email, password);
       console.log('Registration successful, preparing to redirect');
@@ -50,6 +51,16 @@ const RegisterForm = () => {
       } else {
         setError('Registrasi gagal. Silakan coba lagi nanti.');
       }
+=======
+      await register(email, password);
+      setSuccess('Registrasi berhasil! Anda akan diarahkan ke halaman login.');
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
+    } catch (err: any) {
+      console.error(err);
+      setError(err.response?.data?.message || 'Registrasi gagal.');
+>>>>>>> origin/main
     } finally {
       setLoading(false);
     }

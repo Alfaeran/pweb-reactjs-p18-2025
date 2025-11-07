@@ -15,6 +15,7 @@ interface AuthResponse {
 
 // Fungsi untuk Login
 export const loginUser = async (email: string, password: string) => {
+<<<<<<< HEAD
   console.log('Attempting login at:', `${API_URL}/login`);
   try {
     const response = await axios.post<AuthResponse>(`${API_URL}/login`, {
@@ -31,10 +32,18 @@ export const loginUser = async (email: string, password: string) => {
     console.error('Login request failed:', error);
     throw error;
   }
+=======
+  const response = await axios.post<AuthResponse>(`${API_URL}/login`, {
+    email,
+    password,
+  });
+  return response.data;
+>>>>>>> origin/main
 };
 
 // Fungsi untuk Register
 export const registerUser = async (email: string, password: string) => {
+<<<<<<< HEAD
   console.log('Attempting registration at:', `${API_URL}/register`);
   try {
     const response = await axios.post(`${API_URL}/register`, { 
@@ -53,6 +62,14 @@ export const registerUser = async (email: string, password: string) => {
     });
     throw error;
   }
+=======
+  // Ganti '/register' dengan endpoint Anda
+  const response = await axios.post(`${API_URL}/register`, { 
+    email, 
+    password 
+  });
+  return response.data;
+>>>>>>> origin/main
 };
 
 // (Opsional tapi direkomendasikan) Fungsi untuk mengambil data user

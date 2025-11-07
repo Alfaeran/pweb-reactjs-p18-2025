@@ -6,9 +6,12 @@
       "dom.iterable",
       "esnext"
     ],
+<<<<<<< HEAD
     // Restrict automatic global type inclusion to known libs to avoid
     // implicit 'send' type library resolution from other packages.
     "types": ["react", "react-dom"],
+=======
+>>>>>>> origin/main
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,

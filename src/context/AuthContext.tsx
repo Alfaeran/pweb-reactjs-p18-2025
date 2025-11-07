@@ -57,7 +57,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (email: string, password: string) => {
     const data = await authService.loginUser(email, password);
+<<<<<<< HEAD
     console.log('Login successful, setting token and user:', { hasToken: !!data.token, hasUser: !!data.user });
+=======
+>>>>>>> origin/main
     localStorage.setItem('token', data.token);
     setToken(data.token);
     setUser(data.user);
@@ -74,6 +77,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
   };
 
+<<<<<<< HEAD
   const isAuthenticated = !!token;
 
   console.log('AuthContext State:', {
@@ -85,6 +89,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const value = {
     isAuthenticated,
+=======
+  const value = {
+    isAuthenticated: !!token,
+>>>>>>> origin/main
     user,
     token,
     login,

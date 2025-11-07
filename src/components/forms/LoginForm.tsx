@@ -24,12 +24,19 @@ const LoginForm = () => {
 
     setLoading(true);
     try {
+<<<<<<< HEAD
       console.log('Login attempt with:', { email });
       await login(email, password);
       console.log('Login successful, navigating to books page');
       navigate('/books/BooksList.tsx', { replace: true }); // Redirect ke halaman books setelah login
     } catch (err) {
       console.error('Login failed:', err);
+=======
+      await login(email, password);
+      navigate('/'); // Redirect ke halaman utama setelah login
+    } catch (err) {
+      console.error(err);
+>>>>>>> origin/main
       setError('Login gagal. Periksa kembali email atau password Anda.');
     } finally {
       setLoading(false);
