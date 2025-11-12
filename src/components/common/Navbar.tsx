@@ -1,18 +1,27 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 
 interface NavbarProps {
   userEmail?: string
   onLogout?: () => void
 }
 
-const Navbar: React.FC<NavbarProps> = ({ userEmail = 'user@example.com', onLogout }) => {
+const Navbar: React.FC<NavbarProps> = ({ userEmail, onLogout }) => {
   const navigate = useNavigate()
+  const { user, logout: contextLogout, isAuthenticated } = useAuth()
+  
+  // Use user from context if available, otherwise use prop
+  const displayEmail = user?.email || userEmail || 'Guest'
 
   const handleLogout = () => {
-    localStorage.removeItem('auth_token')
-    localStorage.removeItem('auth_user')
+    // Call context logout to clear auth state
+    contextLogout()
+    
+    // Call prop callback if provided
     if (onLogout) onLogout()
+    
+    // Navigate to login
     navigate('/login')
   }
 
@@ -20,7 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({ userEmail = 'user@example.com', onLogou
     <nav className="navbar">
       <div className="navbar-container">
         {/* Logo */}
-        <Link to="/books" className="navbar-logo">
+        <Link to="/" className="navbar-logo">
           <svg className="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M4 3C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H20C21.1 21 22 20.1 22 19V5C22 3.9 21.1 3 20 3H4ZM4 5H8V19H4V5ZM10 5H20V19H10V5ZM12 7V17H18V7H12Z" fill="var(--gold)"/>
           </svg>
@@ -29,7 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({ userEmail = 'user@example.com', onLogou
 
         {/* Navigation Links */}
         <div className="navbar-menu">
-          <Link to="/books" className="navbar-link">
+          <Link to="/" className="navbar-link">
             <svg className="nav-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4 3C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H20C21.1 21 22 20.1 22 19V5C22 3.9 21.1 3 20 3H4ZM12 5V19M4 5H20V7H4V5Z" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -45,12 +54,12 @@ const Navbar: React.FC<NavbarProps> = ({ userEmail = 'user@example.com', onLogou
 
         {/* Right Section */}
         <div className="navbar-right">
-          <span className="user-email">{userEmail}</span>
-          <button className="logout-btn" onClick={handleLogout}>
+          {isAuthenticated && <span className="user-email">{displayEmail}</span>}
+          <button className="logout-btn" onClick={handleLogout} title={isAuthenticated ? 'Logout' : 'Login'}>
             <svg className="logout-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M17 7L15.59 8.41L18.17 11H8V13H18.17L15.59 15.59L17 17L23 11L17 5M4 5H10V3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H10V19H4V5Z" fill="var(--parchment)"/>
             </svg>
-            Logout
+            {isAuthenticated ? 'Logout' : 'Login'}
           </button>
         </div>
       </div>

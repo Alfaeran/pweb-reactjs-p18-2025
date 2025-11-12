@@ -1,0 +1,403 @@
+/* Edit Transaction Page Styling */
+.edit-transaction-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #3E2723 0%, #1a0f0a 100%);
+  padding: 2rem;
+  font-family: 'Georgia', serif;
+  color: #E8D4B0;
+}
+
+.edit-transaction-container.loading,
+.edit-transaction-container.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #FFD700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Back Button */
+.back-btn {
+  display: inline-block;
+  margin-bottom: 2rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: 2px solid #FFD700;
+  color: #FFD700;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #FFD700;
+  color: #3E2723;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+/* Edit Transaction Card */
+.edit-transaction-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #2a1810 0%, #3E2723 100%);
+  border: 3px solid #FFD700;
+  border-radius: 8px;
+  padding: 3rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 215, 0, 0.05);
+}
+
+.edit-transaction-card h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  color: #FFD700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid #FFD700;
+  padding-bottom: 1rem;
+}
+
+.transaction-id {
+  color: #FFD700;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+/* Error Message */
+.error-message {
+  background: rgba(220, 53, 69, 0.2);
+  border: 2px solid #dc3545;
+  color: #ff6b6b;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+/* Form Sections */
+.form-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 215, 0, 0.05);
+  border-left: 4px solid #FFD700;
+  border-radius: 4px;
+}
+
+.form-section h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  color: #FFD700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+  padding-bottom: 0.75rem;
+}
+
+/* Books Grid */
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.book-option {
+  background: rgba(255, 215, 0, 0.08);
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: 6px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.book-option:hover {
+  border-color: #FFD700;
+  background: rgba(255, 215, 0, 0.12);
+}
+
+.book-info h4 {
+  color: #E8D4B0;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.book-price {
+  color: #FFD700;
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.add-btn {
+  padding: 0.5rem 1rem;
+  background: #FFD700;
+  color: #3E2723;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-btn:hover:not(:disabled) {
+  background: #FFC700;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.add-btn:disabled {
+  background: #50C878;
+  color: #1a1a1a;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Empty Message */
+.empty-message {
+  color: #FFD700;
+  text-align: center;
+  padding: 1rem;
+  font-style: italic;
+}
+
+/* Items List */
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 4px;
+  border-left: 4px solid #FFD700;
+}
+
+.item-info {
+  flex: 1;
+  min-width: 150px;
+}
+
+.item-info h4 {
+  color: #E8D4B0;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.item-price {
+  color: #FFD700;
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.item-quantity label {
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.item-quantity input {
+  width: 60px;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #FFD700;
+  color: #E8D4B0;
+  border-radius: 4px;
+  font-family: 'Georgia', serif;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.item-quantity input:focus {
+  outline: none;
+  border-color: #FFC700;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
+}
+
+.item-subtotal {
+  min-width: 120px;
+  text-align: right;
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.remove-btn {
+  padding: 0.5rem 1rem;
+  background: rgba(220, 53, 69, 0.2);
+  border: 2px solid #dc3545;
+  color: #ff6b6b;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.remove-btn:hover {
+  background: #dc3545;
+  color: white;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+/* Total Section */
+.total-section {
+  background: rgba(255, 215, 0, 0.1);
+  border-left: 4px solid #FFD700;
+  padding: 1.5rem;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  color: #E8D4B0;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.total-row:last-child {
+  border-bottom: none;
+}
+
+.total-row:first-child span:first-child {
+  color: #FFD700;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.grand-total {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #FFD700;
+  font-size: 1.3rem;
+}
+
+.grand-total span:first-child {
+  color: #FFD700;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.grand-total span:last-child {
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: flex-end;
+}
+
+.submit-btn,
+.cancel-btn {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn {
+  background: #FFD700;
+  color: #3E2723;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #FFC700;
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  background: #888;
+  color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.cancel-btn {
+  background: transparent;
+  border: 2px solid #FFD700;
+  color: #FFD700;
+}
+
+.cancel-btn:hover:not(:disabled) {
+  background: #FFD700;
+  color: #3E2723;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .edit-transaction-card {
+    padding: 1.5rem;
+  }
+
+  .item-row {
+    flex-wrap: wrap;
+  }
+
+  .item-quantity,
+  .item-subtotal {
+    width: 100%;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .submit-btn,
+  .cancel-btn {
+    width: 100%;
+  }
+
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
+}

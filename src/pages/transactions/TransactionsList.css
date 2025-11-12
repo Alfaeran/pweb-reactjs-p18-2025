@@ -1,0 +1,729 @@
+/* Transactions List Page Styling */
+.transactions-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #3E2723 0%, #1a0f0a 100%);
+  padding: 2rem;
+  font-family: 'Georgia', serif;
+  color: #E8D4B0;
+}
+
+.transactions-container.loading-state,
+.transactions-container.error-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Header Section */
+.transactions-header {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.header-content h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 2.5rem;
+  color: #FFD700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 0.5rem 0;
+}
+
+.header-subtitle {
+  font-size: 1rem;
+  color: rgba(232, 212, 176, 0.8);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Controls Section */
+.transactions-controls {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+.control-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex: 1;
+  min-width: 350px;
+}
+
+.search-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #FFD700;
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  transition: all 0.3s ease;
+  height: 44px;
+}
+
+.search-wrapper:focus-within {
+  border-color: #FFC700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #E8D4B0;
+  font-family: 'Georgia', serif;
+  font-size: 0.95rem;
+  outline: none;
+  padding: 0;
+  min-width: 0;
+}
+
+.search-input::placeholder {
+  color: rgba(232, 212, 176, 0.6);
+  font-style: italic;
+}
+
+/* Add Transaction Button */
+.add-transaction-btn {
+  padding: 0.6rem 1.5rem;
+  background: #FFD700;
+  color: #3E2723;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-transaction-btn:hover {
+  background: #FFC700;
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.add-transaction-btn:active {
+  transform: translateY(0);
+}
+
+/* Results Info */
+.results-info {
+  max-width: 1200px;
+  margin: 0.75rem auto 1.5rem;
+  padding: 0 1rem;
+  text-align: right;
+}
+
+.results-count {
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Content Section */
+.transactions-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.table-wrapper {
+  background: linear-gradient(135deg, #2a1810 0%, #3E2723 100%);
+  border: 3px solid #FFD700;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 215, 0, 0.05);
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transactions-table thead {
+  background: rgba(255, 215, 0, 0.1);
+  border-bottom: 2px solid #FFD700;
+}
+
+.transactions-table th {
+  padding: 1.25rem;
+  color: #FFD700;
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  text-align: left;
+  border-bottom: 2px solid #FFD700;
+}
+
+.transactions-table tbody tr {
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.transactions-table tbody tr:hover {
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.transactions-table td {
+  padding: 1rem 1.25rem;
+  color: #E8D4B0;
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+/* Column Styling */
+.col-id {
+  width: 12%;
+  text-align: left;
+  padding-left: 1.5rem !important;
+}
+
+.col-date {
+  width: 11%;
+  text-align: center;
+}
+
+.col-items {
+  width: 30%;
+  text-align: center;
+  padding: 1rem 0.5rem !important;
+}
+
+.col-qty {
+  width: 11%;
+  text-align: center;
+}
+
+.col-price {
+  width: 18%;
+  text-align: center;
+}
+
+.col-action {
+  width: 12%;
+  text-align: center;
+  padding-right: 1.5rem !important;
+}
+
+/* Transaction ID */
+.transaction-id {
+  background: rgba(255, 215, 0, 0.1);
+  color: #FFD700;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* Date Value */
+.date-value {
+  color: rgba(232, 212, 176, 0.8);
+  font-size: 0.9rem;
+}
+
+/* Items List */
+.items-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.item-tag {
+  background: rgba(255, 215, 0, 0.15);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: #E8D4B0;
+  padding: 0.35rem 0.65rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+  display: inline-block;
+}
+
+.item-tag.more {
+  background: rgba(255, 215, 0, 0.25);
+  color: #FFD700;
+  font-weight: 600;
+}
+
+/* Quantity Badge */
+.qty-badge {
+  background: rgba(255, 215, 0, 0.2);
+  border: 1px solid #FFD700;
+  color: #FFD700;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+/* Price Value */
+.price-value {
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Action Button */
+.action-button {
+  padding: 0.5rem 1rem;
+  background: #FFD700;
+  color: #3E2723;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-button:hover {
+  background: #FFC700;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.action-button:active {
+  transform: translateY(0);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
+}
+
+.pagination-btn {
+  padding: 0.6rem 1.2rem;
+  background: transparent;
+  border: 2px solid #FFD700;
+  color: #FFD700;
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #FFD700;
+  color: #3E2723;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.current-page,
+.total-pages {
+  color: #FFC700;
+  font-weight: 700;
+}
+
+/* Empty State */
+.empty-state {
+  max-width: 600px;
+  margin: 3rem auto;
+  text-align: center;
+  padding: 3rem;
+  background: linear-gradient(135deg, #2a1810 0%, #3E2723 100%);
+  border: 3px solid #FFD700;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 215, 0, 0.05);
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: #FFD700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: rgba(232, 212, 176, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Error Message */
+.error-message {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: rgba(220, 53, 69, 0.2);
+  border: 2px solid #dc3545;
+  color: #ff6b6b;
+  border-radius: 4px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.error-message p {
+  margin: 0;
+}
+
+/* Loader */
+.loader {
+  color: #FFD700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+/* Sort/Filter Controls */
+.sort-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sort-select {
+  padding: 0.6rem 1rem;
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid #FFD700;
+  color: #E8D4B0;
+  font-family: 'Georgia', serif;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  outline: none;
+  height: 44px;
+  min-width: 180px;
+}
+
+.sort-select:hover {
+  border-color: #FFC700;
+  background: rgba(255, 215, 0, 0.15);
+}
+
+.sort-select:focus {
+  border-color: #FFC700;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+}
+
+.sort-select option {
+  background: #3E2723;
+  color: #E8D4B0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .transactions-controls {
+    gap: 0.75rem;
+  }
+
+  .control-group {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .sort-controls {
+    flex: 0 1 auto;
+    gap: 0.75rem;
+  }
+
+  .sort-select {
+    min-width: 160px;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .add-transaction-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .results-info {
+    margin: 0;
+  }
+
+  .results-count {
+    font-size: 0.75rem;
+  }
+
+  .col-id {
+    width: 11%;
+    padding-left: 1rem !important;
+  }
+
+  .col-date {
+    width: 10%;
+  }
+
+  .col-items {
+    width: 32%;
+    padding: 0.75rem 0.5rem !important;
+  }
+
+  .col-qty {
+    width: 10%;
+  }
+
+  .col-price {
+    width: 18%;
+  }
+
+  .col-action {
+    width: 11%;
+    padding-right: 1rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .transactions-container {
+    padding: 1rem;
+  }
+
+  .header-content h1 {
+    font-size: 1.6rem;
+  }
+
+  .transactions-controls {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .control-group {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .search-wrapper {
+    width: 100%;
+  }
+
+  .sort-controls {
+    width: 100%;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: space-between;
+  }
+
+  .sort-select {
+    flex: 0 1 auto;
+    min-width: 130px;
+    font-size: 0.75rem;
+  }
+
+  .add-transaction-btn {
+    flex: 0 1 auto;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .results-info {
+    flex: 0 0 auto;
+  }
+
+  .results-count {
+    font-size: 0.7rem;
+  }
+
+  .transactions-table {
+    font-size: 0.8rem;
+  }
+
+  .transactions-table th,
+  .transactions-table td {
+    padding: 0.6rem;
+  }
+
+  .item-tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    max-width: 80px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .pagination-btn {
+    width: 100%;
+  }
+
+  .col-id,
+  .col-date,
+  .col-items,
+  .col-qty,
+  .col-price,
+  .col-action {
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .transactions-container {
+    padding: 0.75rem;
+  }
+
+  .header-content h1 {
+    font-size: 1.2rem;
+  }
+
+  .header-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .transactions-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .control-group {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .search-wrapper {
+    width: 100%;
+    height: 38px;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .search-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 0.5rem;
+  }
+
+  .search-input {
+    font-size: 0.8rem;
+  }
+
+  .sort-controls {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sort-select {
+    width: 100%;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.7rem;
+    height: auto;
+    min-width: auto;
+  }
+
+  .add-transaction-btn {
+    width: 100%;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.7rem;
+    height: auto;
+  }
+
+  .results-info {
+    width: 100%;
+    margin: 0.5rem 0 0;
+    text-align: center;
+  }
+
+  .results-count {
+    font-size: 0.65rem;
+  }
+
+  .transactions-table {
+    font-size: 0.7rem;
+  }
+
+  .transactions-table th,
+  .transactions-table td {
+    padding: 0.4rem 0.3rem;
+  }
+
+  .col-id {
+    padding-left: 0.5rem !important;
+  }
+
+  .col-items {
+    padding: 0.4rem 0.2rem !important;
+  }
+
+  .col-action {
+    padding-right: 0.5rem !important;
+  }
+
+  .action-button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.65rem;
+  }
+
+  .item-tag {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.3rem;
+    max-width: 60px;
+  }
+}

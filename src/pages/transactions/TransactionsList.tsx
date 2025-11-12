@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { transactionService } from '../../services/transactionService'
 import { Transaction } from '../../types'
+import './TransactionsList.css'
 
 const TransactionsList: React.FC = () => {
   const navigate = useNavigate()
@@ -10,6 +11,7 @@ const TransactionsList: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   const [searchId, setSearchId] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const [sortBy, setSortBy] = useState<'price-desc' | 'price-asc' | 'date-desc' | 'date-asc'>('date-desc')
   const itemsPerPage = 10
 
   useEffect(() => {
@@ -37,9 +39,29 @@ const TransactionsList: React.FC = () => {
     transaction.id.toLowerCase().includes(searchId.toLowerCase())
   )
 
+  // Sort transactions based on sortBy
+  const sortedTransactions = [...filteredTransactions].sort((a, b) => {
+    const getTotalPrice = (transaction: Transaction) => {
+      return transaction.items.reduce((sum, item) => sum + item.book.price * item.quantity, 0)
+    }
+
+    switch (sortBy) {
+      case 'price-desc':
+        return getTotalPrice(b) - getTotalPrice(a)
+      case 'price-asc':
+        return getTotalPrice(a) - getTotalPrice(b)
+      case 'date-desc':
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      case 'date-asc':
+        return new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      default:
+        return 0
+    }
+  })
+
   // Paginate
-  const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage)
-  const paginatedTransactions = filteredTransactions.slice(
+  const totalPages = Math.ceil(sortedTransactions.length / itemsPerPage)
+  const paginatedTransactions = sortedTransactions.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   )
@@ -67,7 +89,7 @@ const TransactionsList: React.FC = () => {
     return (
       <div className="transactions-container error-state">
         <div className="error-message">
-          <p>⚠️ {error}</p>
+          <p>{error}</p>
         </div>
       </div>
     )
@@ -111,10 +133,34 @@ const TransactionsList: React.FC = () => {
           </div>
         </div>
 
-        <div className="results-info">
-          <span className="results-count">
-            {filteredTransactions.length} transaction{filteredTransactions.length !== 1 ? 's' : ''}
-          </span>
+        <div className="sort-controls">
+          <select
+            value={sortBy}
+            onChange={(e) => {
+              setSortBy(e.target.value as 'price-desc' | 'price-asc' | 'date-desc' | 'date-asc')
+              setCurrentPage(1)
+            }}
+            className="sort-select"
+          >
+            <option value="date-desc">Newest First</option>
+            <option value="date-asc">Oldest First</option>
+            <option value="price-desc">Highest Price</option>
+            <option value="price-asc">Lowest Price</option>
+          </select>
+
+          <button 
+            className="add-transaction-btn"
+            onClick={() => navigate('/transactions/add')}
+            title="Create a new transaction"
+          >
+            + Add Transaction
+          </button>
+
+          <div className="results-info">
+            <span className="results-count">
+              {sortedTransactions.length} transaction{sortedTransactions.length !== 1 ? 's' : ''}
+            </span>
+          </div>
         </div>
       </div>
 

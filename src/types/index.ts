@@ -32,22 +32,6 @@ export interface AuthResponse {
 }
 
 // Book Types
-export interface Book {
-  id: string
-  title: string
-  writer: string
-  publisher: string
-  publication_year: number
-  description?: string
-  price: number
-  stock_quantity: number
-  genre_id: string
-  created_at: string
-  updated_at: string
-  deleted_at?: string | null
-  genre: Genre
-}
-
 export interface Genre {
   id: string
   name: string
@@ -55,6 +39,53 @@ export interface Genre {
   updated_at?: string
   deleted_at?: string | null
 }
+
+export interface Book {
+  id: string
+  title: string
+  writer: string
+  publisher: string
+  publication_year: number
+  description?: string | null
+  price: number
+  stock_quantity: number
+  genre_id: string
+  genre: Genre
+  created_at?: string
+  updated_at?: string
+  deleted_at?: string | null
+}
+
+export interface Meta {
+  total: number
+  page: number
+  limit: number
+  pages: number
+}
+
+export interface BookListResponse {
+  status: boolean
+  meta: Meta
+  data: Book[]
+}
+
+export interface BookDetailResponse {
+  status: boolean
+  data: Book
+}
+
+export interface CreateBookPayload {
+  title: string
+  writer: string
+  publisher: string
+  publication_year: number
+  description?: string | null
+  price: number
+  stock_quantity: number
+  genre_id: string
+}
+
+export interface UpdateBookPayload extends Partial<CreateBookPayload> {}
 
 export interface BookCreateRequest {
   title: string
@@ -65,17 +96,6 @@ export interface BookCreateRequest {
   price: number
   stock_quantity: number
   genre_id: string
-}
-
-export interface BookListResponse {
-  status: boolean
-  meta: {
-    total: number
-    page: number
-    limit: number
-    pages: number
-  }
-  data: Book[]
 }
 
 // Transaction/Order Types
@@ -123,6 +143,12 @@ export interface TransactionResponse {
 export interface TransactionListResponse {
   status: boolean
   data: Transaction[]
+}
+
+export interface ErrorResponse {
+  status: false
+  message: string
+  field?: string
 }
 
 // Generic API Response Type

@@ -32,5 +32,19 @@ export const transactionService = {
     const response = await apiClient.get<any>('/transactions/statistics/all')
     return response.data
   },
+
+  // Update transaction
+  updateTransaction: async (id: string, items: Array<{ book_id: string; quantity: number }>) => {
+    const response = await apiClient.put<{ status: boolean; message: string; data: Transaction }>(`/transactions/${id}`, {
+      items,
+    })
+    return response.data
+  },
+
+  // Delete transaction
+  deleteTransaction: async (id: string) => {
+    const response = await apiClient.delete<{ status: boolean; message: string }>(`/transactions/${id}`)
+    return response.data
+  },
 }
 

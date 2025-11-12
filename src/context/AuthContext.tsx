@@ -19,31 +19,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
-  console.log('AuthProvider mounted, initial loading state: true');
-
   useEffect(() => {
     const verifyToken = async () => {
-      console.log('verifyToken started');
       const storedToken = localStorage.getItem('auth_token')
-      console.log('storedToken from localStorage:', storedToken);
       
       if (storedToken) {
         try {
-          localStorage.setItem('auth_token', storedToken)
           const userData = await authService.getCurrentUser()
           setUser(userData.data)
           setToken(storedToken)
-          console.log('Token verified successfully');
         } catch (error) {
           localStorage.removeItem('auth_token')
           localStorage.removeItem('auth_user')
           console.error('Token verification failed:', error)
         }
-      } else {
-        console.log('No stored token found');
       }
       
-      console.log('Setting loading to false');
       setLoading(false)
     }
 

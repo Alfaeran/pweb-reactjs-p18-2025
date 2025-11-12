@@ -1,47 +1,53 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-
-interface TransactionItem {
-  bookId: string
-  title: string
-  quantity: number
-  price: number
-  subtotal: number
-}
-
-interface Transaction {
-  id: string
-  date: string
-  totalAmount: number
-  totalPrice: number
-  items: TransactionItem[]
-  status: string
-}
+import { useNavigate, useParams } from 'react-router-dom'
+import { transactionService } from '../../services/transactionService'
+import { Transaction } from '../../types'
+import './TransactionDetail.css'
 
 const TransactionDetail: React.FC = () => {
   const navigate = useNavigate()
+  const { id } = useParams<{ id: string }>()
   const [transaction, setTransaction] = useState<Transaction | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
     // Fetch transaction details
     const fetchTransaction = async () => {
       try {
+        if (!id) {
+          setError('Invalid transaction ID')
+          return
+        }
         setLoading(true)
-        // const transactionId = window.location.pathname.split('/').pop()
-        // const response = await transactionService.getTransactionById(transactionId)
-        // setTransaction(response)
+        const response = await transactionService.getTransactionById(id)
+        setTransaction(response.data)
         setError(null)
-      } catch (err) {
-        setError('Failed to load transaction details')
+      } catch (err: any) {
+        setError(err.response?.data?.message || 'Failed to load transaction details')
       } finally {
         setLoading(false)
       }
     }
 
     fetchTransaction()
-  }, [])
+  }, [id])
+
+  const handleDelete = async () => {
+    if (!window.confirm('Are you sure you want to delete this transaction? This action cannot be undone.')) {
+      return
+    }
+
+    try {
+      setDeleting(true)
+      await transactionService.deleteTransaction(id!)
+      navigate('/transactions')
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Failed to delete transaction')
+      setDeleting(false)
+    }
+  }
 
   if (loading) {
     return <div className="transaction-detail-container loading">Loading...</div>
@@ -76,13 +82,11 @@ const TransactionDetail: React.FC = () => {
           </div>
           <div className="info-row">
             <span className="label">Date:</span>
-            <span className="value">{transaction.date}</span>
+            <span className="value">{new Date(transaction.created_at).toLocaleDateString('id-ID')}</span>
           </div>
           <div className="info-row">
-            <span className="label">Status:</span>
-            <span className={`status status-${transaction.status.toLowerCase()}`}>
-              {transaction.status}
-            </span>
+            <span className="label">User:</span>
+            <span className="value">{transaction.user.email}</span>
           </div>
         </div>
 
@@ -104,10 +108,10 @@ const TransactionDetail: React.FC = () => {
               <tbody>
                 {transaction.items.map((item, idx) => (
                   <tr key={idx}>
-                    <td>{item.title}</td>
+                    <td>{item.book.title}</td>
                     <td>{item.quantity}</td>
-                    <td>Rp {item.price.toLocaleString('id-ID')}</td>
-                    <td className="subtotal">Rp {item.subtotal.toLocaleString('id-ID')}</td>
+                    <td>Rp {item.book.price.toLocaleString('id-ID')}</td>
+                    <td className="subtotal">Rp {(item.book.price * item.quantity).toLocaleString('id-ID')}</td>
                   </tr>
                 ))}
               </tbody>
@@ -121,11 +125,16 @@ const TransactionDetail: React.FC = () => {
         <div className="receipt-summary">
           <div className="summary-row">
             <span className="label">Total Items:</span>
-            <span className="value">{transaction.totalAmount}</span>
+            <span className="value">{transaction.items.length}</span>
           </div>
           <div className="summary-row total">
             <span className="label">Total Price:</span>
-            <span className="value">Rp {transaction.totalPrice.toLocaleString('id-ID')}</span>
+            <span className="value">
+              Rp{' '}
+              {transaction.items
+                .reduce((sum, item) => sum + item.book.price * item.quantity, 0)
+                .toLocaleString('id-ID')}
+            </span>
           </div>
         </div>
 
@@ -136,6 +145,24 @@ const TransactionDetail: React.FC = () => {
         <div className="receipt-footer">
           <p>Thank you for your purchase!</p>
           <p className="authentication">Hogwarts Library & Bookshop</p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="action-buttons">
+          <button 
+            className="edit-btn" 
+            onClick={() => navigate(`/transactions/edit/${id}`)}
+            disabled={deleting}
+          >
+            ✎ Edit Transaction
+          </button>
+          <button 
+            className="delete-btn" 
+            onClick={handleDelete}
+            disabled={deleting}
+          >
+            {deleting ? 'Deleting...' : '🗑️ Delete Transaction'}
+          </button>
         </div>
       </div>
     </div>

@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('student@hogwarts.edu'); // Sesuai gambar
-  const [password, setPassword] = useState('password'); // Sesuai gambar
+  const [email, setEmail] = useState(''); 
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +25,7 @@ const LoginForm = () => {
     setLoading(true);
     try {
       await login(email, password);
-      navigate('/'); // Redirect ke halaman utama setelah login
+      navigate('/dashboard', { replace: true }); // Redirect to dashboard after login
     } catch (err) {
       console.error(err);
       setError('Login gagal. Periksa kembali email atau password Anda.');

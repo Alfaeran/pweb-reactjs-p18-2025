@@ -1,22 +1,23 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Navigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 
 interface ProtectedRouteProps {
   children: React.ReactNode
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  useEffect(() => {
-    // Set a temporary token for development/testing if not exists
-    if (!localStorage.getItem('auth_token')) {
-      localStorage.setItem('auth_token', 'temp_token_dev')
-      localStorage.setItem('auth_user', JSON.stringify({ email: 'maurigar@gmail.com' }))
-    }
-  }, [])
+  const { isAuthenticated, loading } = useAuth()
 
-  const token = localStorage.getItem('auth_token')
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        Loading...
+      </div>
+    )
+  }
 
-  if (!token) {
+  if (!isAuthenticated) {
     return <Navigate to="/login" replace />
   }
 

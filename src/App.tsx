@@ -9,20 +9,18 @@ import { AuthContext } from './context/AuthContext'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 
-// Admin Pages
-import AdminDashboard from './pages/admin/AdminDashboard'
-
-// Public Pages
-import PublicLanding from './pages/public/PublicLanding'
-
 // Books Pages
-const BooksList = () => <div style={{ padding: '20px', textAlign: 'center' }}>Books List Coming Soon...</div>
-const BookDetail = () => <div style={{ padding: '20px', textAlign: 'center' }}>Book Detail Coming Soon...</div>
-const AddBook = () => <div style={{ padding: '20px', textAlign: 'center' }}>Add Book Coming Soon...</div>
+import BooksList from './pages/books/BooksList'
+import BookDetail from './pages/books/BookDetail'
+import AddBook from './pages/books/AddBook'
+import EditBook from './pages/books/EditBook'
 
 // Transactions Pages
 import TransactionsList from './pages/transactions/TransactionsList'
 import TransactionDetail from './pages/transactions/TransactionDetail'
+import AddTransaction from './pages/transactions/AddTransaction'
+import EditTransaction from './pages/transactions/EditTransaction'
+import NewTransaction from './pages/transactions/NewTransaction'
 import Checkout from './pages/transactions/Checkout'
 
 // Role-based Landing Route Component
@@ -33,13 +31,8 @@ const Dashboard = () => {
     return <Navigate to="/login" />
   }
 
-  // Admin users see admin dashboard
-  if (user?.role === 'admin') {
-    return <AdminDashboard />
-  }
-
-  // Regular users see public landing
-  return <PublicLanding />
+  // Admin dashboard shows books list
+  return <BooksList />
 }
 
 function App() {
@@ -68,19 +61,23 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Dashboard Route - Shows admin dashboard or public landing based on role */}
-        <Route path="/dashboard" element={<Dashboard />} />
-
         {/* All other routes with Navbar & Footer */}
         <Route
-          path="/"
+          path="/*"
           element={
             <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
               <Navbar userEmail="" />
               <main style={{ flex: 1 }}>
                 <Routes>
-                  {/* Root - redirect to dashboard */}
-                  <Route path="/" element={<Navigate to="/dashboard" />} />
+                  {/* Dashboard - Books List */}
+                  <Route
+                    path="/"
+                    element={
+                      <ProtectedRoute>
+                        <BooksList />
+                      </ProtectedRoute>
+                    }
+                  />
 
                   {/* Protected Routes - Books */}
                   <Route
@@ -108,6 +105,15 @@ function App() {
                     }
                   />
 
+                  <Route
+                    path="/books/edit/:id"
+                    element={
+                      <ProtectedRoute>
+                        <EditBook />
+                      </ProtectedRoute>
+                    }
+                  />
+
                   {/* Protected Routes - Transactions */}
                   <Route
                     path="/transactions"
@@ -117,6 +123,34 @@ function App() {
                       </ProtectedRoute>
                     }
                   />
+
+                  <Route
+                    path="/transactions/add"
+                    element={
+                      <ProtectedRoute>
+                        <AddTransaction />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/transactions/new"
+                    element={
+                      <ProtectedRoute>
+                        <NewTransaction />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/transactions/edit/:id"
+                    element={
+                      <ProtectedRoute>
+                        <EditTransaction />
+                      </ProtectedRoute>
+                    }
+                  />
+
                   <Route
                     path="/transactions/:id"
                     element={
